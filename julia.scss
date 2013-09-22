@@ -1,0 +1,53 @@
+$juliaBottom: -1;
+$juliaTop: 1;
+$juliaLeft: -2;
+$juliaRight: 2;
+$juliaCols: 160;
+$juliaRows: 80;
+$juliaIters: 100;
+$juliaCellSize: 6px;
+$juliaColor: #FFFFFF;
+
+$juliaWidth: abs($juliaLeft - $juliaRight);
+$juliaHeight: abs($juliaBottom - $juliaTop);
+$juliaRowInc: $juliaHeight / $juliaRows;
+$juliaColInc: $juliaWidth / $juliaCols;
+
+@function nondivergant($r, $i) {
+    @return ($r*$r + $i*$i) < 4.0
+}
+
+@mixin julia($cr, $ci, $zr, $zi) {
+    $i: 0;
+    @while $i < $juliaIters and nondivergant($zr, $zi) {
+        $i: $i + 1;
+
+        $tzr: $zr * $zr - $zi * $zi + $cr;
+        $tzi: 2 * $zr * $zi + $ci;
+        $zr: $tzr;
+        $zi: $tzi;
+    }
+    background-color: darken($juliaColor, ($i / $juliaIters) * 100);
+    width: $juliaCellSize;
+    height: $juliaCellSize;
+    float: left;
+}
+
+@for $row from 0 to $juliaRows {
+    @for $col from 0 to $juliaCols {
+        $r: $juliaLeft + $juliaColInc * $col;
+        $i: $juliaBottom + $juliaRowInc * $row;
+       .cell-#{$col}-#{$row} {
+           @include julia(-0.8, 0.156, $r, $i);
+       }  
+    }
+}
+
+.clear {
+    clear: left;
+}
+
+.wrapper {
+    width: $juliaCellSize * $juliaCols;
+    height: $juliaCellSize * $juliaRows;
+}

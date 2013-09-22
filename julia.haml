@@ -1,0 +1,9 @@
+%html
+  %head
+    %link{:href => "julia.css", :rel => "stylesheet", :type => "text/css"}
+  %body
+    %div{:class => "wrapper"}
+      - (0..80).each do |r|
+        - (0..160).each do |c|
+          %div{:class => "cell-#{c}-#{r}"}
+        %div{:class => "clear"}
