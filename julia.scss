@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:300);
+
 $juliaBottom: -1;
 $juliaTop: 1;
 $juliaLeft: -2;
@@ -28,8 +30,6 @@ $juliaColInc: $juliaWidth / $juliaCols;
         $zi: $tzi;
     }
     background-color: darken($juliaColor, ($i / $juliaIters) * 100);
-    width: $juliaCellSize;
-    height: $juliaCellSize;
     float: left;
 }
 
@@ -43,11 +43,30 @@ $juliaColInc: $juliaWidth / $juliaCols;
     }
 }
 
+body {
+    margin: 0;
+}
+
 .clear {
     clear: left;
 }
 
 .wrapper {
+    position: relative;
+    margin: 50px auto;
     width: $juliaCellSize * $juliaCols;
     height: $juliaCellSize * $juliaRows;
+    .cell {
+        width: $juliaCellSize;
+        height: $juliaCellSize;
+    }
+    a {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-family: 'Oswald';
+        font-size: 16px;
+        text-decoration: none;
+        color: #131313;
+    }
 }
